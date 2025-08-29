@@ -2,12 +2,14 @@ import { useState } from "react";
 import Input from "./Ui/Input";
 import Button from "./Ui/Button";
 import { toast } from "react-toastify";
+import OcrResult from "./OcrResult";
 
 function HomePage() {
   const [frontFile, setFrontFile] = useState<File | null>(null);
   const [backFile, setBackFile] = useState<File | null>(null);
   const [frontPreview, setFrontPreview] = useState<string | null>(null);
   const [backPreview, setBackPreview] = useState<string | null>(null);
+  const [ocrData, setOcrData] = useState<Record<string, any> | null>(null);
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -28,24 +30,25 @@ function HomePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (!frontFile || !backFile) {
       toast.error("Please upload both Aadhar Front and Back!");
       return;
     }
-  
+
     const formData = new FormData();
     formData.append("front", frontFile);
     formData.append("back", backFile);
-  
+
     try {
       const res = await fetch("http://localhost:3000/ocr/extract", {
         method: "POST",
         body: formData,
       });
-  
+
       if (res.ok) {
         const data = await res.json();
+        setOcrData(data);
         toast.success("Aadhar parsed successfully!");
         console.log("OCR Result:", data);
       } else {
@@ -56,61 +59,75 @@ function HomePage() {
       toast.error("Server error. Try again later!");
     }
   };
-  
 
   return (
-    <main className="flex items-center bg-gray-100 px-4">
-      <div className="bg-white shadow-lg rounded-2xl p-6 sm:p-10 w-full max-w-md">
-        <h2 className="text-xl sm:text-2xl font-semibold text-center text-gray-800 mb-6">
-          Upload Your Aadhar
-        </h2>
+    <main className="min-h-screen bg-gray-100 flex justify-center items-center px-4 py-8">
+      <div
+        className={`flex flex-col ${
+          ocrData ? "lg:flex-row lg:items-start lg:justify-center lg:gap-8" : ""
+        } w-full max-w-6xl`}
+      >
+        {/* Upload Section */}
+        <div className="bg-white shadow-lg rounded-2xl p-6 sm:p-10 w-full max-w-md mx-auto">
+          <h2 className="text-xl sm:text-2xl font-semibold text-center text-gray-800 mb-6">
+            Upload Your Aadhar
+          </h2>
 
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-2">
-            <Input
-              label="Aadhar Front"
-              id="aadharFront"
-              type="file"
-              accept="image/*"
-              className="cursor-pointer"
-              onChange={(e) => handleFileChange(e, setFrontFile, setFrontPreview)
-              }
-            />
-            {frontPreview && (
-              <img
-                src={frontPreview}
-                alt="Aadhar Front Preview"
-                className="mt-2 w-full h-40 object-contain border rounded-md shadow-sm"
+          <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-2">
+              <Input
+                label="Aadhar Front"
+                id="aadharFront"
+                type="file"
+                accept="image/*"
+                className="cursor-pointer"
+                onChange={(e) =>
+                  handleFileChange(e, setFrontFile, setFrontPreview)
+                }
               />
-            )}
-          </div>
+              {frontPreview && (
+                <img
+                  src={frontPreview}
+                  alt="Aadhar Front Preview"
+                  className="mt-2 w-full h-40 object-contain border rounded-md shadow-sm"
+                />
+              )}
+            </div>
 
-          <div className="flex flex-col gap-2">
-            <Input
-              label="Aadhar Back"
-              id="aadharBack"
-              type="file"
-              accept="image/*"
-              className="cursor-pointer"
-              onChange={(e) => handleFileChange(e, setBackFile, setBackPreview)}
-            />
-            {backPreview && (
-              <img
-                src={backPreview}
-                alt="Aadhar Back Preview"
-                className="mt-2 w-full h-40 object-contain border rounded-md shadow-sm"
+            <div className="flex flex-col gap-2">
+              <Input
+                label="Aadhar Back"
+                id="aadharBack"
+                type="file"
+                accept="image/*"
+                className="cursor-pointer"
+                onChange={(e) => handleFileChange(e, setBackFile, setBackPreview)}
               />
-            )}
-          </div>
+              {backPreview && (
+                <img
+                  src={backPreview}
+                  alt="Aadhar Back Preview"
+                  className="mt-2 w-full h-40 object-contain border rounded-md shadow-sm"
+                />
+              )}
+            </div>
 
-          <Button
-            type="submit"
-            className="w-full bg-orange-500 text-white py-2 sm:py-3 rounded-lg font-semibold 
-                       hover:bg-orange-700 active:scale-[0.98] transition-all duration-200"
-          >
-            PARSE AADHAR
-          </Button>
-        </form>
+            <Button
+              type="submit"
+              className="w-full bg-orange-500 text-white py-2 sm:py-3 rounded-lg font-semibold 
+                         hover:bg-orange-700 active:scale-[0.98] transition-all duration-200"
+            >
+              PARSE AADHAR
+            </Button>
+          </form>
+        </div>
+
+        {/* OCR Result Section */}
+        {ocrData && (
+          <div className="mt-6 lg:mt-0 w-full max-w-lg mx-auto">
+            <OcrResult data={ocrData} />
+          </div>
+        )}
       </div>
     </main>
   );
