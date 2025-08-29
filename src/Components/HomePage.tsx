@@ -10,6 +10,7 @@ function HomePage() {
   const [frontPreview, setFrontPreview] = useState<string | null>(null);
   const [backPreview, setBackPreview] = useState<string | null>(null);
   const [ocrData, setOcrData] = useState<Record<string, any> | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -40,6 +41,8 @@ function HomePage() {
     formData.append("front", frontFile);
     formData.append("back", backFile);
 
+    setIsLoading(true);
+
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/ocr/extract`, {
         method: "POST",
@@ -56,6 +59,8 @@ function HomePage() {
       }
     } catch (err) {
       toast.error("Server error. Try again later!");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,6 +85,7 @@ function HomePage() {
                 type="file"
                 accept="image/*"
                 className="cursor-pointer"
+                disabled={isLoading}
                 onChange={(e) =>
                   handleFileChange(e, setFrontFile, setFrontPreview)
                 }
@@ -100,6 +106,7 @@ function HomePage() {
                 type="file"
                 accept="image/*"
                 className="cursor-pointer"
+                disabled={isLoading}
                 onChange={(e) => handleFileChange(e, setBackFile, setBackPreview)}
               />
               {backPreview && (
@@ -113,10 +120,42 @@ function HomePage() {
 
             <Button
               type="submit"
-              className="w-full bg-orange-500 text-white py-2 sm:py-3 rounded-lg font-semibold 
-                         hover:bg-orange-700 active:scale-[0.98] transition-all duration-200"
+              disabled={isLoading}
+              className={`w-full py-2 sm:py-3 rounded-lg font-semibold 
+                         transition-all duration-200 flex items-center justify-center gap-2
+                         ${
+                           isLoading
+                             ? "bg-orange-400 cursor-not-allowed"
+                             : "bg-orange-500 hover:bg-orange-700 active:scale-[0.98]"
+                         } text-white`}
             >
-              PARSE AADHAR
+              {isLoading ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Processing...
+                </>
+              ) : (
+                "PARSE AADHAR"
+              )}
             </Button>
           </form>
         </div>
