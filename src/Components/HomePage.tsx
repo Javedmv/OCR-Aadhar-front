@@ -41,7 +41,7 @@ function HomePage() {
     formData.append("back", backFile);
 
     try {
-      const res = await fetch("http://localhost:3000/ocr/extract", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/ocr/extract`, {
         method: "POST",
         body: formData,
       });
@@ -50,7 +50,6 @@ function HomePage() {
         const data = await res.json();
         setOcrData(data);
         toast.success("Aadhar parsed successfully!");
-        console.log("OCR Result:", data);
       } else {
         const error = await res.json();
         toast.error(error?.error || "Failed to parse Aadhar!");
