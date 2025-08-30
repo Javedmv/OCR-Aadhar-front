@@ -14,19 +14,43 @@ const OcrResult: React.FC<OcrResultProps> = ({ data }) => {
       </h3>
 
       <form className="flex flex-col gap-4">
-        {Object.entries(data).map(([key, value]) => (
-          <div key={key} className="flex flex-col">
-            <label className="text-sm font-medium text-gray-600 capitalize">
-              {key}
-            </label>
-            <input
-              type="text"
-              value={value}
-              readOnly
-              className="mt-1 px-3 py-2 border rounded-md bg-gray-100 text-gray-800 shadow-sm"
-            />
-          </div>
-        ))}
+        {Object.entries(data).map(([key, value]) => {
+          if (key === "yob") {
+            // Skip the YOB field as it's now replaced with pincode
+            return null;
+          }
+
+          // Display Pincode separately
+          if (key === "pincode") {
+            return (
+              <div key={key} className="flex flex-col">
+                <label className="text-sm font-medium text-gray-600 capitalize">
+                  Pincode
+                </label>
+                <input
+                  type="text"
+                  value={value}
+                  readOnly
+                  className="mt-1 px-3 py-2 border rounded-md bg-gray-100 text-gray-800 shadow-sm"
+                />
+              </div>
+            );
+          }
+
+          return (
+            <div key={key} className="flex flex-col">
+              <label className="text-sm font-medium text-gray-600 capitalize">
+                {key}
+              </label>
+              <input
+                type="text"
+                value={value}
+                readOnly
+                className="mt-1 px-3 py-2 border rounded-md bg-gray-100 text-gray-800 shadow-sm"
+              />
+            </div>
+          );
+        })}
       </form>
 
       <div className="mt-6">

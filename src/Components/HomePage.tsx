@@ -44,7 +44,7 @@ function HomePage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/ocr/extract`, {
+      const res = await fetch(`${import.meta.env.FRONTEND_URL}/ocr/extract`, {
         method: "POST",
         body: formData,
       });
