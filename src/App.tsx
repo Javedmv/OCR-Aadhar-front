@@ -2,6 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
 import { ToastContainer } from 'react-toastify';
 import Header from "./Components/Header"
+import HomePage from './Pages/HomePage';
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
     <>
       <ToastContainer position="top-right" autoClose={3000} />
       <Header />
+      <HomePage />
     </>
   )
 }
