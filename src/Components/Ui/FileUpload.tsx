@@ -33,11 +33,11 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, label, onChange }) => {
   };
 
   return (
-    <div className="flex flex-col gap-1 w-full max-w-full sm:max-w-sm md:max-w-md">
+    <div className="flex flex-col gap-1 w-full max-w-full sm:max-w-sm md:max-w-xl">
       <p className="text-xs sm:text-sm font-medium text-gray-700">{label}</p>
       <label
         htmlFor={id}
-        className="flex flex-col items-center justify-center w-full h-36 sm:h-48 md:h-45 border-2 border-dashed border-blue-400 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition px-2 sm:px-4"
+        className="flex flex-col items-center justify-center w-full h-36 sm:h-48 md:h-55 border-2 border-dashed border-blue-400 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition px-2 sm:px-4"
       >
         {preview ? (
           <img
@@ -63,13 +63,12 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, label, onChange }) => {
         className="hidden"
       />
 
-      {/* Recapture Button */}
       {preview && (
-        <div className="flex items-center justify-center mt-1">
+        <div className="flex items-center justify-center m-1">
           <Button
             type="button"
             onClick={handleRecapture}
-            className="px-3 sm:px-6 py-1 flex items-center justify-center gap-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition text-[10px] sm:text-sm"
+            className="px-6 py-2 md:text-xl flex items-center justify-center gap-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition sm:px-2 sm:text-sm"
           >
             <Camera className="w-3 h-3 sm:w-4 sm:h-4" />
             Press to Recapture & Upload
