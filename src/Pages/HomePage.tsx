@@ -4,7 +4,7 @@ import ParsedData from '../Components/ParsedData';
 import Button from '../Components/Ui/Button';
 function HomePage() {
   return (
-    <div className="flex flex-col md:flex-row w-full md:my-13">
+    <div className="flex flex-col md:flex-row w-full md:my-8">
         <div className="flex flex-col w-full md:w-1/2">
             <ImageField />
             <div className="flex justify-center items-center">
@@ -17,7 +17,7 @@ function HomePage() {
             </Button>
             </div>
         </div>
-        <div className="flex flex-col w-full md:w-1/2 md:h-100vh">
+        <div className="flex flex-col w-full md:w-1/2 h-full px-5">
             <h2 className="text-base sm:text-lg font-bold underline text-gray-800 sm:pb-2 text-center sm:text-left">
                 Parsed Data
             </h2>

@@ -37,7 +37,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, label, onChange }) => {
       <p className="text-xs sm:text-sm font-medium text-gray-700">{label}</p>
       <label
         htmlFor={id}
-        className="flex flex-col items-center justify-center w-full h-36 sm:h-48 md:h-55 border-2 border-dashed border-blue-400 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition px-2 sm:px-4"
+        className="flex flex-col items-center justify-center w-full h-36 sm:h-48 md:h-55 border-2 border-dashed border-gray-400 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition px-2 sm:px-4"
       >
         {preview ? (
           <img
@@ -47,8 +47,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, label, onChange }) => {
           />
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mb-1 sm:mb-2" />
-            <span className="text-[10px] sm:text-xs text-blue-500">
+            <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-gray-500 mb-1 sm:mb-2" />
+            <span className="text-[10px] sm:text-xs text-gray-500">
               Click here to Upload/Capture
             </span>
           </div>

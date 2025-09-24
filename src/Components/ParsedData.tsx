@@ -21,7 +21,7 @@ const ParsedData: React.FC<parsedDataProps> = ({
         <>
             <div className="flex flex-col w-full h-full sm:p-4 sm:m-2">
             {/* Aadhaar Number */}
-            <div className="md:flex md:justify-between">
+            <div className="md:flex md:justify-between m-1">
                 <div className="mb-2 sm:mb-2 md:w-1/2 md:px-2">
                     <p className="text-xs sm:text-sm font-medium text-gray-600 ">
                     Aadhaar Number
@@ -42,7 +42,7 @@ const ParsedData: React.FC<parsedDataProps> = ({
                 </div>
             </div>
             
-            <div className="md:flex md:justify-between">
+            <div className="md:flex md:justify-between m-1">
                 <div className="mb-2 sm:mb-2 md:w-1/2 md:px-2">
                     <p className="text-xs sm:text-sm font-medium text-gray-600">
                     Date of Birth
@@ -61,19 +61,21 @@ const ParsedData: React.FC<parsedDataProps> = ({
             </div>
 
             {/* Address */}
-            <div className="md:px-2 mb-2">
-                <p className="text-xs sm:text-sm font-medium text-gray-600">Address</p>
-                <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 truncate">
-                {address}
-                </p>
-            </div>
+            <div className="m-1">
+                <div className="md:px-2 mb-2">
+                    <p className="text-xs sm:text-sm font-medium text-gray-600">Address</p>
+                    <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 truncate">
+                    {address}
+                    </p>
+                </div>
 
-            {/* Pincode */}
-            <div className="md:px-2">
-                <p className="text-xs sm:text-sm font-medium text-gray-600">Pincode</p>
-                <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 md:w-1/3 truncate">
-                {pincode}
-                </p>
+                {/* Pincode */}
+                <div className="md:px-2">
+                    <p className="text-xs sm:text-sm font-medium text-gray-600">Pincode</p>
+                    <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 md:w-1/3 truncate">
+                    {pincode}
+                    </p>
+                </div>
             </div>
             </div>
         </>
