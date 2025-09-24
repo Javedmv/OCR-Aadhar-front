@@ -16,7 +16,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, label, onChange }) => {
     try {
         if (e.target.files && e.target.files[0]) {
         const file = e.target.files[0];
-        
+
         // Check file type
         if (!file.type.startsWith("image/")) {
           setPreview(null);
@@ -33,14 +33,18 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, label, onChange }) => {
         const img = new Image();
         img.src = URL.createObjectURL(file);
         img.onload = () => {
-          if (img.width < 800 || img.height < 600) {
-            setPreview(null);
-            if (onChange) onChange(null);
-            throw new Error("Image resolution too low. Please upload a clearer image.")
-          }
+          try {
+            if (img.width < 800 || img.height < 600) {
+              setPreview(null);
+              if (onChange) onChange(null);
+              throw new Error("Image resolution too low. Please use a higher-quality image");
+            }
 
-          setPreview(img.src);
-          if (onChange) onChange(file);
+            setPreview(img.src);
+            if (onChange) onChange(file);
+          } catch (error: any) {
+            toast.error(error.message || "Something went wrong in image resolution!");
+          }
         };
       }
     } catch (error: any) {
@@ -92,7 +96,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, label, onChange }) => {
           <Button
             type="button"
             onClick={handleRecapture}
-            className="px-6 py-2 md:text-xl flex items-center justify-center gap-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition sm:px-2 sm:text-sm"
+            className="px-3 py-2 md:text-xl flex items-center justify-center gap-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition"
           >
             <Camera className="w-3 h-3 sm:w-4 sm:h-4" />
             Press to Recapture & Upload
