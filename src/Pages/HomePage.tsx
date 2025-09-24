@@ -1,8 +1,25 @@
 
+import ApiResponseBox from '../Components/ApiResponse';
 import ImageField from '../Components/ImageField';
 import ParsedData from '../Components/ParsedData';
 import Button from '../Components/Ui/Button';
 function HomePage() {
+    const dummyResponse = {
+      status: true,
+      data: {
+      UID: "XXXX-XXXX-XXXX",
+      Name: "John Doe",
+      DOB: "01-01-1990",
+      Gender: "Male",
+      address: "123 Street, City, State",
+      pincode: "123456",
+      age_band: "20-30",
+      maskedMobileNumber: "*******985",
+      isUidSame: "Back UID not found"
+    },
+    message: "Parsing Successfull"
+  };
+
   return (
     <div className="flex flex-col md:flex-row w-full md:my-8">
         <div className="flex flex-col w-full md:w-1/2">
@@ -22,15 +39,14 @@ function HomePage() {
                 Parsed Data
             </h2>
             {/* Top Section */}
-            <div className="h-40 md:flex-[3] flex items-center justify-center border border-dashed border-gray-400">
+            <div className="md:flex-[3] flex items-center justify-center">
                 <ParsedData/>
             </div>
             {/* Bottom Section */}
-            <div className="h-40 md:flex-[4] flex items-center justify-center border border-dashed border-gray-400">
-                <p className="text-gray-600">Dummy Bottom 2/3</p>
+            <div className="md:flex-[4] flex items-center justify-center ">
+                <ApiResponseBox response={dummyResponse} />
             </div>
         </div>
-
     </div>
   );
 }

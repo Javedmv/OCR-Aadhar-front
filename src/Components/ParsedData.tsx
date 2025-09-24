@@ -26,7 +26,7 @@ const ParsedData: React.FC<parsedDataProps> = ({
                     <p className="text-xs sm:text-sm font-medium text-gray-600 ">
                     Aadhaar Number
                     </p>
-                    <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 pb-1 truncate">
+                    <p className="text-base text-gray-800 font-medium border-b border-gray-400 pb-1 truncate">
                     {aadhaarNumber}
                     </p>
                 </div>
@@ -36,7 +36,7 @@ const ParsedData: React.FC<parsedDataProps> = ({
                     <p className="text-xs sm:text-sm font-medium text-gray-600">
                     Name on Aadhaar
                     </p>
-                    <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 pb-1 truncate">
+                    <p className="text-base text-gray-800 font-medium border-b border-gray-400 pb-1 truncate">
                     {name}
                     </p>
                 </div>
@@ -47,32 +47,32 @@ const ParsedData: React.FC<parsedDataProps> = ({
                     <p className="text-xs sm:text-sm font-medium text-gray-600">
                     Date of Birth
                     </p>
-                    <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 pb-1 truncate">
+                    <p className="text-base text-gray-800 font-medium border-b border-gray-400 pb-1 truncate">
                     {dob}
                     </p>
                 </div>
 
                 <div className="mb-2 sm:mb-3 md:w-1/2 md:px-2">
                     <p className="text-xs sm:text-sm font-medium text-gray-600">Gender</p>
-                    <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 pb-1 truncate">
+                    <p className="text-base text-gray-800 font-medium border-b border-gray-400 pb-1 truncate">
                     {gender}
                     </p>
                 </div>
             </div>
 
             {/* Address */}
-            <div className="m-1">
-                <div className="md:px-2 mb-2">
+            <div>
+                <div className="md:px-2 mb-3">
                     <p className="text-xs sm:text-sm font-medium text-gray-600">Address</p>
-                    <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 truncate">
+                    <p className="text-base text-gray-800 font-medium border-b border-gray-400 pb-1 truncate">
                     {address}
                     </p>
                 </div>
 
                 {/* Pincode */}
-                <div className="md:px-2">
+                <div className="md:px-2 m-1">
                     <p className="text-xs sm:text-sm font-medium text-gray-600">Pincode</p>
-                    <p className="text-sm sm:text-base text-gray-800 border-b border-gray-400 md:w-1/3 truncate">
+                    <p className="text-base text-gray-800 font-medium border-b border-gray-400 md:w-1/3 pb-1 truncate">
                     {pincode}
                     </p>
                 </div>
