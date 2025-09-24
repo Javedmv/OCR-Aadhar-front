@@ -8,7 +8,14 @@ function App() {
 
   return (
     <>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer         
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        closeButton={false}
+        draggable />
       <Header />
       <HomePage />
     </>

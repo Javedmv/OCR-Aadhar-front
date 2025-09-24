@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Camera, Upload } from "lucide-react";
 import Button from "./Button";
+import { toast } from "react-toastify";
 
 interface FileUploadProps {
   id: string;
@@ -12,15 +13,38 @@ const FileUpload: React.FC<FileUploadProps> = ({ id, label, onChange }) => {
   const [preview, setPreview] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      if (onChange) onChange(file);
+    try {
+        if (e.target.files && e.target.files[0]) {
+        const file = e.target.files[0];
+        
+        // Check file type
+        if (!file.type.startsWith("image/")) {
+          setPreview(null);
+          if (onChange) onChange(null);
+          throw new Error("Only image files are allowed!");
+        }
 
-      if (file.type.startsWith("image/")) {
-        setPreview(URL.createObjectURL(file));
-      } else {
-        setPreview(null);
+        if (file.size < 50 * 1024) { // 50 KB minimum
+          setPreview(null);
+          if (onChange) onChange(null);
+          throw new Error("Image is too small. Please upload a clear image. minimum 50kb required!!");
+        }
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = () => {
+          if (img.width < 800 || img.height < 600) {
+            setPreview(null);
+            if (onChange) onChange(null);
+            throw new Error("Image resolution too low. Please upload a clearer image.")
+          }
+
+          setPreview(img.src);
+          if (onChange) onChange(file);
+        };
       }
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong!");
     }
   };
 
