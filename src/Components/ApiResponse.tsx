@@ -5,9 +5,9 @@ interface ApiResponseBoxProps {
     status: boolean;
     data: {
       UID: string;
-      Name: string;
-      DOB: string;
-      Gender: string;
+      name: string;
+      dob: string;
+      gender: string;
       address: string;
       pincode: string;
       age_band: string;
@@ -19,14 +19,6 @@ interface ApiResponseBoxProps {
 }
 
 const ApiResponseBox: React.FC<ApiResponseBoxProps> = ({ response }) => {
-  if (!response) {
-    return (
-      <div className="w-full h-full flex items-center justify-center text-gray-500 font-mono">
-        No API response yet
-      </div>
-    );
-  }
-
   return (
     <div className="w-full h-full p-3 sm:p-4 overflow-auto bg-black rounded-md">
       <h2 className="text-green-400 font-bold mb-3 text-sm sm:text-base">
