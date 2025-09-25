@@ -6,7 +6,7 @@ function Header() {
                       bg-clip-text text-transparent 
                       text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
                       font-bold text-center px-2 max-w-full break-words">
-          Aadhar OCR System
+          Aadhaar OCR System
         </h1>
       </div>
     </header>
