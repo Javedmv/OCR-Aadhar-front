@@ -11,40 +11,39 @@ import { uploadAadhar } from '../Services/AadhaarService';
 function HomePage() {
     const { aadhar } = useContext(AadharContext)
     const { execute, loading, error, data } = useApi(uploadAadhar);
-    console.log(error)
-  async function parseAadhaar() {
-    try {
-        const {back, front} = aadhar;
-        if(!front){
-            throw new Error("Please upload the Aadhar Front image.")
-        }
-        if(!back){
-            throw new Error("Please upload the Aadhar Back image.")
-        }
-        const response = await execute({ front, back });
-        if (error) {
-            if (typeof error === "string" && error.includes("400")) {
-                toast.error("Invalid input. Please check your Aadhaar images and try again.");
-            } else {
-                toast.error(typeof error === "string" ? error : "Something went wrong!");
+    async function parseAadhaar() {
+        try {
+            const {back, front} = aadhar;
+            if(!front){
+                throw new Error("Please upload the Aadhar Front image.")
             }
-            return;
-        }
-        if (response && response.status === false) {
-            toast.error(response.message || "Backend error occurred!");
-            return;
-        }
-        if (response?.status) {
-            toast.success(response.message || "Aadhaar uploaded successfully!");
-        }
-    } catch (error: unknown) {
-        if (error instanceof Error) {
-            toast.error(error.message);
-        } else {
-            toast.error("Something went wrong!");
+            if(!back){
+                throw new Error("Please upload the Aadhar Back image.")
+            }
+            const response = await execute({ front, back });
+            if (error) {
+                if (typeof error === "string" && error.includes("400")) {
+                    toast.error("Invalid input. Please check your Aadhaar images and try again.");
+                } else {
+                    toast.error(typeof error === "string" ? error : "Something went wrong!");
+                }
+                return;
+            }
+            if (response && response.status === false) {
+                toast.error(response.message || "Backend error occurred!");
+                return;
+            }
+            if (response?.status) {
+                toast.success(response.message || "Aadhaar uploaded successfully!");
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Something went wrong!");
+            }
         }
     }
-  }
   
   return (
     <div className="flex flex-col md:flex-row w-full md:my-8">

@@ -16,7 +16,6 @@ export function useApi<TArgs, TResult>(apiFn: ApiFn<TArgs, TResult>) {
             return result;
         } catch (error: unknown) {
             if (error instanceof Error) {
-                console.log(error, "from useApi hook")
                 setError(error.message);
             } else {
                 setError("An unknown error occurred.");

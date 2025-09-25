@@ -17,6 +17,12 @@ const ParsedData: React.FC<parsedDataProps> = ({
     address = "123 Street, City, State",
     pincode = "123456",
 }) => {
+
+    function formatAadhaarNumber(uid?: string) {
+        if (!uid) return "";
+        return uid.replace(/(.{4})/g, "$1 ").trim();
+    }
+
     return(
         <>
             <div className="flex flex-col w-full h-full sm:p-4 sm:m-2">
@@ -26,7 +32,7 @@ const ParsedData: React.FC<parsedDataProps> = ({
                     Aadhaar Number
                     </p>
                     <p className="text-base text-gray-800 font-medium border-b border-gray-400 pb-1 truncate">
-                    {UID}
+                    {UID ? formatAadhaarNumber(UID) : UID}
                     </p>
                 </div>
 
