@@ -7,9 +7,9 @@ export interface AadharPayLoad{
 }
 
 export interface AadharResponse {
-  success: boolean;
+  status: boolean;
   message: string;
-  data?: any;
+  data: any;
 }
 
 export const uploadAadhar = async (data: AadharPayLoad): Promise<AadharResponse> => {
